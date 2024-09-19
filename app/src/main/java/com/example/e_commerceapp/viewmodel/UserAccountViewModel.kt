@@ -70,10 +70,10 @@ class UserAccountViewModel @Inject constructor(
         }
     }
 
-    private fun saveUserInformation(user: User, b: Boolean) {
+    private fun saveUserInformation(user: User, keepOldImage: Boolean) {
         firestore.runTransaction { transaction ->
             val documentRef = firestore.collection("User").document(firebaseAuth.uid!!)
-            if (b) {
+            if (keepOldImage) {
                 val currentUser = transaction.get(documentRef).toObject(User::class.java)
                 val newUser = user.copy(imgPath = currentUser?.imgPath ?: "")
                 transaction.set(documentRef, newUser)
@@ -97,11 +97,17 @@ class UserAccountViewModel @Inject constructor(
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 96, byteArrayOutputStream)
                 val imageByteArray = byteArrayOutputStream.toByteArray()
-                val imageDirectory =
-                    fireStorage.child("profileImages/${firebaseAuth.uid!!}/${UUID.randomUUID()}")
+                val imageDirectory = fireStorage.child("profileImages/${firebaseAuth.uid!!}/${UUID.randomUUID()}")
+
+                // Upload image
                 val result = imageDirectory.putBytes(imageByteArray).await()
+
+                // Get download URL for the uploaded image
                 val imgUrl = result.storage.downloadUrl.await().toString()
+
+                // Save user information with the new image URL
                 saveUserInformation(user.copy(imgPath = imgUrl), false)
+
             } catch (e: Exception) {
                 viewModelScope.launch { _updateInfo.emit(Resource.Error(e.message.toString())) }
             }

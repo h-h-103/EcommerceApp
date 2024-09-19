@@ -42,8 +42,6 @@ class UserAccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getUser() // Ensure the user information is fetched
-
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 it.data?.data?.let { imageUri ->
@@ -100,9 +98,12 @@ class UserAccountFragment : Fragment() {
 
     private fun collectUser() {
         lifecycleScope.launchWhenStarted {
+            viewModel.getUser()
             viewModel.user.collectLatest {
                 when (it) {
-                    is Resource.Loading -> showUserLoading()
+                    is Resource.Loading -> {
+                        showUserLoading()
+                    }
                     is Resource.Success -> {
                         hideUserLoading()
                         showUserInformation(it.data!!)

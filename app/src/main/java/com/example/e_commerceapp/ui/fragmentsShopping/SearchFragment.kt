@@ -74,11 +74,15 @@ class SearchFragment : Fragment() {
             viewModel.search.collectLatest { resource ->
                 when (resource) {
                     is Resource.Loading -> {
-                        binding.progressbarCategories.visibility = View.VISIBLE
+                        binding.shimmerSearch.visibility = View.VISIBLE
+                        binding.rvSearch.visibility = View.GONE
+                        binding.shimmerSearch.startShimmer()
                     }
 
                     is Resource.Success -> {
-                        binding.progressbarCategories.visibility = View.GONE
+                        binding.shimmerSearch.stopShimmer()
+                        binding.shimmerSearch.visibility = View.GONE
+                        binding.rvSearch.visibility = View.VISIBLE
                         resource.data?.let { products ->
                             searchAdapter.differ.submitList(products)
                         }

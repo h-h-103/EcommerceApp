@@ -12,6 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_search">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/search_shimmer_item" />
+                <include layout="@layout/search_shimmer_item" />
+                <include layout="@layout/search_shimmer_item" />
+                <include layout="@layout/search_shimmer_item" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <EditText
             android:id="@+id/ed_search"
             android:layout_width="0dp"
@@ -32,7 +53,6 @@
             app:layout_constraintVertical_bias="1.0"
             android:drawableEnd="@drawable/ic_search"
             android:drawablePadding="10dp" />
-
 
         <FrameLayout
             android:id="@+id/frame_scan"
@@ -100,6 +120,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintTop_toBottomOf="@id/ed_search" />

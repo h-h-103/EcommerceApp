@@ -44,16 +44,16 @@ class ProfileFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Profile Fragment
+        // Profile Fragment
         binding.constraintProfile.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_userAccountFragment)
         }
 
-        // TODO: Orders Fragment
+        // Orders Fragment
         binding.linearOrders.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_orderFragment)
         }
-        // TODO: billing Fragment
+        //  billing Fragment
         binding.linearBilling.setOnClickListener {
             val action = ProfileFragmentDirections.actionProfileFragmentToBillingFragment(
                 0f,
@@ -63,7 +63,7 @@ class ProfileFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             findNavController().navigate(action)
         }
 
-        // TODO: Notification Fragment
+        // Notification Fragment
         binding.switchNotification.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -74,11 +74,11 @@ class ProfileFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             }
         }
 
-        // TODO: Help Fragment
+        //  Help Fragment
         binding.linearHelp.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_helpFragment)
         }
-        // TODO: Logout Fragment
+        // Logout Fragment
         binding.linearOut.setOnClickListener {
             viewModel.logout()
             val intent = Intent(requireActivity(), LoginRegisterActivity::class.java)
@@ -114,7 +114,6 @@ class ProfileFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
             }
         }
-
     }
 
     @SuppressLint("SetTextI18n")
