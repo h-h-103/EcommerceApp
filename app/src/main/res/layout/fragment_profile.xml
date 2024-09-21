@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        style="@style/screenBackground">
 
         <ProgressBar
             android:id="@+id/progressbar_settings"
@@ -31,10 +32,14 @@
 
             <TextView
                 android:id="@+id/tv_settings"
-                style="@style/BigTextViewThin"
+                style="@style/textColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textSize="@dimen/_17ssp"
+                android:textColor="#4b4f60"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_thin"
                 android:text="@string/g_settings"
                 app:layout_constraintStart_toStartOf="@id/guideline1"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +51,7 @@
                 app:layout_constraintStart_toStartOf="@id/guideline1"
                 app:layout_constraintEnd_toEndOf="@id/guideline2"
                 android:layout_marginTop="8dp"
+                style="@style/cardBackground"
                 app:layout_constraintTop_toBottomOf="@+id/tv_settings">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -57,8 +63,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    style="@style/textColor"
                     android:id="@+id/tv_user_name"
-                    style="@style/MediumTextViewThin"
+                    android:textColor="#4b4f60"
+                    android:textSize="@dimen/_13ssp"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -68,8 +78,11 @@
                     app:layout_constraintTop_toTopOf="@+id/img_user" />
 
                 <TextView
+                    style="@style/textColor"
                     android:id="@+id/tv_edit_personal_details"
-                    style="@style/SmallTextViewThin"
+                    android:textSize="@dimen/_13ssp"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/g_edit_personal_details"
@@ -291,35 +304,83 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linear_dark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/search_box_background"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/linear_notifications">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/settings_items_background"
+                        android:backgroundTint="#000000"
+                        android:src="@drawable/ic_dark"
+                        app:tint="@color/white"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_dark"
+                        style="@style/MediumTextViewThin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_weight="1"
+                        android:text="Them"
+                        android:textColor="@color/g_hint"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:buttonTint="#4cd964"
+                        android:thumb="@drawable/thumb"
+                        app:track="@drawable/track"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_regional"
                 style="@style/MediumTextViewThin"
-                android:textColor="@color/g_hint"
-                android:textStyle="normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:text="@string/g_regional"
+                android:textColor="@color/g_hint"
+                android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="@id/guideline1"
-                app:layout_constraintTop_toBottomOf="@id/linear_notifications" />
+                app:layout_constraintTop_toBottomOf="@+id/linear_dark" />
 
             <LinearLayout
-                android:background="@drawable/search_box_background"
                 android:id="@+id/linear_regional"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/guideline1"
-                app:layout_constraintEnd_toEndOf="@id/guideline2"
-                app:layout_constraintTop_toBottomOf="@id/tv_regional"
+                android:background="@drawable/search_box_background"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp">
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_regional">
 
                 <LinearLayout
                     android:id="@+id/linear_help"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -336,19 +397,19 @@
                         style="@style/MediumTextViewThin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_15sdp"
                         android:layout_weight="1"
                         android:text="@string/help"
                         android:textColor="@color/g_hint"
-                        android:textStyle="bold"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_gravity="center_vertical"/>
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_arrow"
                         app:tint="@color/g_icon_tint"
-                        android:layout_gravity="center_vertical"
                         tools:ignore="ContentDescription" />
 
                 </LinearLayout>
@@ -357,16 +418,16 @@
                     android:id="@+id/linear_out"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/ic_logout"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/settings_items_background"
                         android:backgroundTint="#ff5823"
+                        android:src="@drawable/ic_logout"
                         app:tint="@color/white"
                         tools:ignore="ContentDescription" />
 
@@ -385,9 +446,9 @@
                     <ImageView
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_arrow"
                         app:tint="@color/g_icon_tint"
-                        android:layout_gravity="center_vertical"
                         tools:ignore="ContentDescription" />
 
                 </LinearLayout>

@@ -2,7 +2,9 @@ package com.example.e_commerceapp.ui.fragmentsShopping
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -34,6 +37,9 @@ class ProfileFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private val binding by lazy { FragmentProfileBinding.inflate(layoutInflater) }
     private val viewModel: ProfileViewModel by viewModels()
     private val requestPermissionsCode = 1
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private var nightMode: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +49,26 @@ class ProfileFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferences = requireContext().getSharedPreferences("MODE", Context.MODE_PRIVATE)
+        nightMode = sharedPreferences.getBoolean("nightMode", false)
+        if (nightMode) {
+            binding.switchNotification.isChecked = true
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
+        binding.switchDark.setOnClickListener {
+            if (nightMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                editor = sharedPreferences.edit()
+                editor.putBoolean("nightMode", false)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                editor = sharedPreferences.edit()
+                editor.putBoolean("nightMode", true)
+            }
+            editor.apply()
+        }
 
         // Profile Fragment
         binding.constraintProfile.setOnClickListener {
